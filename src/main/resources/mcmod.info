@@ -1,0 +1,16 @@
+[
+{
+  "modid": "rawinput",
+  "name": "Raw Input",
+  "description": "Raw Input mod",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/xCuri0/RawInputMod",
+  "updateUrl": "",
+  "authorList": ["xCuri0"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
