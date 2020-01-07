@@ -41,13 +41,13 @@ public class RawInput
 		
 		                dx += (int)mouse.getX().getPollData();
 		               	dy += (int)mouse.getY().getPollData();         		
-		            	try {
-							Thread.sleep(1);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
             		}
+	            	try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
             	}
             }
         });
