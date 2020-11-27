@@ -1,11 +1,10 @@
 package com.kuri0.rawinput;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-
 import java.lang.reflect.Constructor;
 
 import net.java.games.input.Controller;
@@ -54,7 +53,7 @@ public class RawInput
 			        				controllers[i].poll();
 			        				if (((Mouse)controllers[i]).getX().getPollData() != 0.0 || ((Mouse)controllers[i]).getY().getPollData() != 0.0) {
 			        					mouse = (Mouse)controllers[i];
-										Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Found mouse"));
+										Minecraft.getMinecraft().player.sendMessage(new TextComponentString("Found mouse"));
 									}
 			        			}
 			        		}
