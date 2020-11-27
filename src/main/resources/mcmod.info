@@ -1,6 +1,6 @@
 [
 {
-  "modid": "RawInput",
+  "modid": "rawinput",
   "name": "Raw Input",
   "description": "Raw Input mod",
   "version": "${version}",
