@@ -49,15 +49,26 @@ public class RawInput
 						try {
 							Controller[] controllers;
 							controllers = createDefaultEnvironment().getControllers();
-								for (int i = 0; i < controllers.length; i++) {
-			        			if (controllers[i].getType() == Controller.Type.MOUSE) {
-			        				controllers[i].poll();
-			        				if (((Mouse)controllers[i]).getX().getPollData() != 0.0 || ((Mouse)controllers[i]).getY().getPollData() != 0.0) {
-			        					mouse = (Mouse)controllers[i];
-										Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Found mouse"));
+							for (Controller controller : controllers) {
+								try {
+									if (controller.getType() == Controller.Type.MOUSE) {
+										controller.poll();
+										float px = ((Mouse) controller).getX().getPollData();
+										float py = ((Mouse) controller).getY().getPollData();
+										float eps = 0.1f;
+
+										// check if mouse is moving
+										if ((-eps < px && px < eps) || (-eps < py && py < eps)) {
+											mouse = (Mouse) controller;
+											Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Found mouse"));
+										}
 									}
-			        			}
-			        		}
+								}
+								catch (Exception e) {
+									// skip to next
+									e.printStackTrace();
+								}
+							}
 						} catch (ReflectiveOperationException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
