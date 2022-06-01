@@ -3,6 +3,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 
 public class RescanCommand extends CommandBase {
 	@Override
@@ -17,7 +18,7 @@ public class RescanCommand extends CommandBase {
 
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-		sender.addChatMessage(new ChatComponentText("Rescanning input devices..."));
+		sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GOLD + "[RawInput] Rescanning input devices..."));
 		com.kuri0.rawinput.RawInput.mouse = null;
 	}
 	@Override
