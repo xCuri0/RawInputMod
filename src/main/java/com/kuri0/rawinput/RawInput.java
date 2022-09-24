@@ -30,37 +30,42 @@ public class RawInput
 		ClientCommandHandler.instance.registerCommand(new RescanCommand());
 		Minecraft.getMinecraft().mouseHelper = new RawMouseHelper();
 		controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
-		Thread inputThread = new Thread((() -> {
-			while (true) {
-				int i = 0;
-				while (i < controllers.length && mouse == null) {
-					if (controllers[i].getType() == Controller.Type.MOUSE) {
-						controllers[i].poll();
-						float px = ((Mouse) controllers[i]).getX().getPollData();
-						float py = ((Mouse) controllers[i]).getY().getPollData();
-						float eps = 0.1f;
-						if (Math.abs(px) > eps || Math.abs(py) > eps) {
-							mouse = (Mouse) controllers[i];
-							try {
-								Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Found mouse"));
-							} catch (Exception ignored) {}
+		Thread inputThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (true) {
+					int i = 0;
+					while (i < controllers.length && mouse == null) {
+						if (controllers[i].getType() == Controller.Type.MOUSE) {
+							controllers[i].poll();
+							float px = ((Mouse) controllers[i]).getX().getPollData();
+							float py = ((Mouse) controllers[i]).getY().getPollData();
+							float eps = 0.1f;
+							if (Math.abs(px) > eps || Math.abs(py) > eps) {
+								mouse = (Mouse) controllers[i];
+								try {
+									Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Found mouse"));
+								} catch (Exception ignored) {}
+							}
+						}
+						i++;
+					}
+					if (mouse != null) {
+						mouse.poll();
+						if (Minecraft.getMinecraft().currentScreen == null) {
+							dx += mouse.getX().getPollData();
+							dy += mouse.getY().getPollData();
 						}
 					}
-					i++;
-				}
-				if (mouse != null) {
-					mouse.poll();
-					dx += mouse.getX().getPollData();
-					dy += mouse.getY().getPollData();
-				}
 
-				try {
-					Thread.sleep(1L);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					try {
+						Thread.sleep(1L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
-		}));
+		});
 		inputThread.setName("inputThread");
 		inputThread.start();
 	}
