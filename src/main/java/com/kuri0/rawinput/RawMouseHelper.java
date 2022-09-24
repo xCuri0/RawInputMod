@@ -6,9 +6,9 @@ public class RawMouseHelper extends MouseHelper {
     @Override
     public void mouseXYChange()
     {
-        this.deltaX = RawInput.dx;
+        this.deltaX = (int)RawInput.dx;
         RawInput.dx = 0;
-        this.deltaY = -RawInput.dy;
+        this.deltaY = -(int)RawInput.dy;
         RawInput.dy = 0;
     }
 }

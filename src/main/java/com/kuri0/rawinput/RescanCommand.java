@@ -16,12 +16,12 @@ public class RescanCommand extends CommandBase {
 	}
 
 	@Override
-	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+	public void processCommand(ICommandSender sender, String[] args) {
 		sender.addChatMessage(new ChatComponentText("Rescanning input devices..."));
 		com.kuri0.rawinput.RawInput.mouse = null;
 	}
 	@Override
 	public int getRequiredPermissionLevel() {
-		return 0;
+		return -1;
 	}
 }
